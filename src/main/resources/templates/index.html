@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+<h1>Welcome to To-Do List</h1>
+<div th:if="${#authentication.principal.username}">
+    <p>Hello, <span th:text="${#authentication.principal.username}"></span>!</p>
+    <a href="/tasks">View Tasks</a>
+    <a href="/logout">Logout</a>
+</div>
+<div th:unless="${#authentication.principal.username}">
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</div>
+</body>
+</html>
