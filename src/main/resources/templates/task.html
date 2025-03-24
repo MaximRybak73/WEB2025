@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cards</title>
+</head>
+<body>
+<h1>Cards</h1>
+<div th:if="${#authentication.principal.isAdmin}">
+    <a href="/Cards/create">Create Cards</a>
+</div>
+<ul>
+    <li th:each="card : ${Cards}">
+        <h3 th:text="${card.title}"></h3>
+        <p th:text="${card.description}"></p>
+        <p>Status: <span th:text="${card.status}"></span></p>
+        <p>Assignee: <span th:text="${card.assignee != null ? card.assignee.username : 'Unassigned'}"></span></p>
+        <div th:if="${#authentication.principal.isAdmin}">
+            <a th:href="@{/cards/{id}/assign(id=${card.id})}">Assign</a>
+            <a th:href="@{/cards/{id}/status(id=${card.id})}">Change Status</a>
+        </div>
+    </li>
+</ul>
+<a href="/">Back to Home</a>
+</body>
+</html>
