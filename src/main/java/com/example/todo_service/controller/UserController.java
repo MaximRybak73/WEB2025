@@ -4,6 +4,7 @@ import com.example.todo_service.model.User;
 import com.example.todo_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,4 +26,10 @@ public class UserController {
         User updatedUser = userService.updateRole(userId, isAdmin);
         return ResponseEntity.ok(updatedUser);
     }
+    // Авторизация
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestBody User user) {
+//        String token = userService.loginUser(user.getLogin(), user.getPassword());
+//        return ResponseEntity.ok(token);
+//    }
 }

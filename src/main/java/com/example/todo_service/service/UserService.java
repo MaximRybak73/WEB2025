@@ -13,6 +13,7 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
     public User registerUser(User user) {
         // Проверка, существует ли пользователь с таким логином
         if (userRepository.findByLogin(user.getLogin()).isPresent()) {
