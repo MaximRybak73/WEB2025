@@ -53,10 +53,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**")) // Отключаем CSRF для auth endpoints
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/users/**")) // Разрешаем POST без CSRF для API
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/auth/**", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN") // Защищаем API endpoints
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

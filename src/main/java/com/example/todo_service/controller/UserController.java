@@ -33,9 +33,8 @@ public class UserController {
 //        return ResponseEntity.ok(registeredUser);
 //    }
 
-    @PutMapping("/{userId}/role")
+    @PostMapping("/{userId}/role")
     public ResponseEntity<User> updateRole(@PathVariable Long userId, @RequestParam boolean isAdmin) {
-        // Вызов сервиса для изменения роли пользователя
         User updatedUser = userService.updateRole(userId, isAdmin);
         return ResponseEntity.ok(updatedUser);
     }
