@@ -1,6 +1,7 @@
 package com.example.todo_service.model;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 

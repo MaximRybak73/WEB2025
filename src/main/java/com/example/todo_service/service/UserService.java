@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,5 +60,9 @@ public class UserService {
         // Изменение роли пользователя
         user.setAdmin(isAdmin);
         return userRepository.save(user); // Сохранение изменений в базе данных
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.getAllUsers();
     }
 }

@@ -1,12 +1,11 @@
 package com.example.todo_service.service;
 
 import com.example.todo_service.model.Card;
-import com.example.todo_service.model.User;
 import com.example.todo_service.repository.CardRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CardService {
@@ -27,12 +26,28 @@ public class CardService {
         return cardRepository.save(card); // Сохранение изменений в базе данных
     }
 
-    public Card assignExecutor(Long cardId, User executor) {
+    public Card assignExecutor(Long cardId, Long executor) {
         // Получение карточки по ID
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new RuntimeException("Card not found"));
         // Назначение исполнителя
-        card.setExecutor(executor);
+        card.setExecutor_id(executor);
         return cardRepository.save(card); // Сохранение изменений в базе данных
+    }
+
+    public List<Card> getAllByExecutor(Long executor) {
+        return cardRepository.findByExecutor(executor);
+    }
+
+    public List<Card> getAllByExecutor(String executor) {
+        return cardRepository.findByExecutor(executor);
+    }
+
+    public Optional<Card> getCardById(Long id) {
+        return cardRepository.findById(id);
+    }
+
+    public List<Card> getAll() {
+        return cardRepository.getAll();
     }
 }

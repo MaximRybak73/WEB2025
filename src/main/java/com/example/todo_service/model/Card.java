@@ -3,6 +3,7 @@ package com.example.todo_service.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -10,14 +11,23 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String status;
     private String name;
     private String description;
-    private String status;
-    private LocalDate creationDate;
-    @ManyToOne
-    private User executor;
+    private Date creationDate;
+    private Long executor_id;
 
     // Getters and Setters
+
+
+    public Card(Long id, String name, String description, String status, Date creationDate, Long executor) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.creationDate = creationDate;
+        this.executor_id = executor;
+    }
 
     public Long getId() {
         return id;
@@ -51,19 +61,19 @@ public class Card {
         this.status = status;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public User getExecutor() {
-        return executor;
+    public Long getExecutor_id() {
+        return executor_id;
     }
 
-    public void setExecutor(User executor) {
-        this.executor = executor;
+    public void setExecutor_id(Long executor) {
+        this.executor_id = executor;
     }
 }

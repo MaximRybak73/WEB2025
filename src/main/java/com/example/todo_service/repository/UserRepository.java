@@ -1,5 +1,6 @@
 package com.example.todo_service.repository;
 
+import com.example.todo_service.model.Card;
 import com.example.todo_service.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -63,6 +65,18 @@ public class UserRepository {
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
+    }
+
+    public List<User> getAllUsers () {
+        String sql = "SELECT * FROM person;";
+        return jdbcTemplate.query(sql, new Object[]{}, (rs, rowNum) ->
+                new User(
+                        rs.getLong("id"),
+                        rs.getString("login"),
+                        rs.getString("password"),
+                        rs.getBoolean("isadmin")
+                        // Возможно, здесь должно быть rs.getString("login")
+                ));
     }
 
     // Другие методы репозитория...
