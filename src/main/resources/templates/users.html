@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Management</title>
+</head>
+<body>
+<h1>User Management</h1>
+<a href="/">Back to Home</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Login</th>
+        <th>Admin</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.admin} ? 'Yes' : 'No'"></td>
+        <td>
+            <form th:action="@{/api/users/{id}/role(id=${user.id})}" method="post">
+                <input type="hidden" name="isAdmin" th:value="${!user.admin}">
+                <button type="submit">
+                    <span th:text="${user.admin} ? 'Revoke Admin' : 'Make Admin'"></span>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

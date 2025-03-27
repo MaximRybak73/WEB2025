@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+<h1>Welcome to To-Do List</h1>
+<div th:if="${#authorization.expression('isAuthenticated()')}">
+    <p>Hello, <span th:text="${#authentication.principal}"></span>!</p>
+    <a href="/tasks">View Tasks</a>
+    <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin/users">Manage Users</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти</button>
+    </form>
+
+</div>
+<div th:unless="${#authorization.expression('isAuthenticated()')}">
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
+</div>
+</body>
+</html>
