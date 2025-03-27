@@ -8,11 +8,13 @@
 <div th:if="${#authorization.expression('isAuthenticated()')}">
     <p>Hello, <span th:text="${#authentication.principal}"></span>!</p>
     <a href="/tasks">View Tasks</a>
-    <a href="/logout">Logout</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти</button>
+    </form>
 </div>
 <div th:unless="${#authorization.expression('isAuthenticated()')}">
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
 </div>
 </body>
 </html>

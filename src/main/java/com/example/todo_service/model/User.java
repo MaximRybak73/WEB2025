@@ -1,6 +1,8 @@
 package com.example.todo_service.model;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 public class User {
@@ -10,6 +12,16 @@ public class User {
     private String login;
     private String password;
     private boolean isAdmin;
+
+    public User(Long id, String login, String password, boolean isAdmin) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
+    public User() {
+    }
 
     public Long getId() {
         return id;

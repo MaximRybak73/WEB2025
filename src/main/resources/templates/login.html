@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form th:action="@{/api/auth/login}" method="post">
+    <form th:action="@{/auth/login}" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
@@ -14,7 +14,7 @@
         <br>
         <button type="submit">Login</button>
     </form>
-    <a href="/register">Register</a>
+    <a href="/auth/register">Register</a>
     <a href="/">Back to Home</a>
 </body>
 </html>

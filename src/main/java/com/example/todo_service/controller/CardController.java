@@ -16,6 +16,7 @@ import java.util.List;
 public class CardController {
     @Autowired
     private CardService cardService;
+    @Autowired
     private UserService userService;
     @PostMapping
     public ResponseEntity<Card> createCard(@RequestBody Card card) {

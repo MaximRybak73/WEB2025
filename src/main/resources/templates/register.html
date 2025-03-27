@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <title>Registration</title>
 </head>
 <body>
-<h1>Register</h1>
-<form th:action="@{/api/auth/register}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
+<h2>Registration</h2>
+
+<div th:if="${success != null}" class="alert alert-success">
+    <span th:text="${success}"></span>
+</div>
+
+<form th:action="@{/auth/register}" th:object="${user}" method="post">
+    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+        <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+    </div>
+
+    <div>
+        <label>Login:</label>
+        <input type="text" th:field="*{login}"
+               th:classappend="${#fields.hasErrors('login')} ? 'is-invalid' : ''">
+        <span th:errors="*{login}" class="error"></span>
+    </div>
+
+    <div>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}"
+               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+        <span th:errors="*{password}" class="error"></span>
+    </div>
+
     <button type="submit">Register</button>
 </form>
-<a href="/">Back to Home</a>
+
+<p>Already have an account? <a th:href="@{/users/login}">Login here</a></p>
 </body>
 </html>
