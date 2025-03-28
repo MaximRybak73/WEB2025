@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,11 +30,20 @@ public class UserController {
 //        return ResponseEntity.ok(registeredUser);
 //    }
 
-    @PutMapping("/{userId}/role")
-    public ResponseEntity<User> updateRole(@PathVariable Long userId, @RequestParam boolean isAdmin) {
-        // Вызов сервиса для изменения роли пользователя
+
+    @PostMapping("/{userId}/role")
+    public String updateRole(@PathVariable Long userId, @RequestParam boolean isAdmin) {
         User updatedUser = userService.updateRole(userId, isAdmin);
-        return ResponseEntity.ok(updatedUser);
+        return "Статус пользователя успешно обновлен!";
+    }
+
+    @PostMapping("/users/{id}/role")
+    public String updateUserRole(@PathVariable Long id,
+                                 @RequestParam boolean isAdmin,
+                                 RedirectAttributes redirectAttributes) {
+        userService.updateRole(id, isAdmin);
+        redirectAttributes.addFlashAttribute("success", "Роль успешно обновлена");
+        return "redirect:/admin/users"; // Перенаправление обратно на страницу управления пользователями
     }
 
     @PostMapping("/register")
