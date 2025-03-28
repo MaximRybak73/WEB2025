@@ -187,7 +187,7 @@
 </head>
 <body>
 <h1>Tasks</h1>
-
+<a href="/">Back to Home</a>
 <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
     <button onclick="openCreateTaskModal()" class="create-btn">Create New Task</button>
 </div>

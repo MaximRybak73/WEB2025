@@ -42,7 +42,7 @@ public class UserRepository {
                     user.isAdmin());
             user.setId(id);
         } else {
-            String sql = "UPDATE person SET login = ?, password = ?, is_admin = ? WHERE id = ?";
+            String sql = "UPDATE person SET login = ?, password = ?, isadmin = ? WHERE id = ?";
             jdbcTemplate.update(sql,
                     user.getLogin(),
                     user.getPassword(),

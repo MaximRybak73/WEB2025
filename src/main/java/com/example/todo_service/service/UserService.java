@@ -2,9 +2,7 @@ package com.example.todo_service.service;
 
 import com.example.todo_service.InvalidCredentialsException;
 import com.example.todo_service.UserAlreadyExistsException;
-import com.example.todo_service.dto.UserLoginDto;
 import com.example.todo_service.model.User;
-import com.example.todo_service.dto.UserRegistrationDto;
 import com.example.todo_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +21,7 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
-    public User authenticateUser(UserLoginDto loginDto) {
+    public User authenticateUser(User loginDto) {
         // Находим пользователя по логину
         Optional<User> userOptional = userRepository.findByLogin(loginDto.getLogin());
 
@@ -41,7 +39,7 @@ public class UserService {
         return user;
     }
 
-    public void registerUser(UserRegistrationDto registrationDto) {
+    public void registerUser(User registrationDto) {
         if (userRepository.findByLogin(registrationDto.getLogin()).isPresent()) {
             throw new UserAlreadyExistsException("User already exists");
         }
@@ -64,5 +62,12 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userRepository.getAllUsers();
+    }
+    public void registerAdmin(User registrationDto) {
+        User user = new User();
+        user.setLogin(registrationDto.getLogin());
+        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        user.setAdmin(true);
+        userRepository.save(user);
     }
 }
